@@ -1,13 +1,8 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import { Form } from './Login/form'
-
-const inter = Inter({ subsets: ['latin'] })
+import Sidebar from "./components/Sidebar/Sidebar";
 
 export default function Home() {
+
   return (
-    <div>
-      <Form />
-    </div>
+    <Sidebar />
   )
 }

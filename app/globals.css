@@ -79,3 +79,9 @@
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
+
+@layer components {
+  .sidebar .heading {
+    @apply text-gray-600 font-medium mb-2
+  }
+}
