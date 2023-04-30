@@ -7,11 +7,17 @@ import { CalendarCheck } from 'lucide-react';
 import { FileText } from 'lucide-react';
 import { MessageSquare } from 'lucide-react';
 import { Settings2 } from 'lucide-react';
+import { getCurrentUser } from '@/app/actions/getCurrentUser';
+import { Account } from './Account';
+import { Team } from './Team';
 
-const Nav = () => {
+const Nav = async () => {
+
+    const user = await getCurrentUser()
 
     const data = [
         {
+            id: 1,
             name: 'Home',
             list: [{
                 name: 'Dashboard',
@@ -20,6 +26,7 @@ const Nav = () => {
             }]
         },
         {
+            id: 2,
             name: 'Applications',
             list: [
                 {
@@ -45,6 +52,7 @@ const Nav = () => {
             ],
         },
         {
+            id: 3,
             name: 'Tools',
             list: [
                 {
@@ -73,18 +81,18 @@ const Nav = () => {
 
 
     return (
-        <nav className='p-3 max-w-sm border'>
-
+        <nav className='p-3 max-w-sm border h-screen relative'>
+            <Team />
             {data.map((i) =>
             (
-                <div key={i.name} className="sidebar mt-3">
+                <div key={i.id} className="sidebar mt-3">
                     <h1 className="heading ps-3">{i.name}</h1>
                     <ul>
                         {i.list.map((e) => (
-                            <li key={i.name} className='p-2 ps-3 hover:bg-slate-300 cursor-pointer rounded-md transition'>
-                                <div className='flex gap-3 items-center'>
+                            <li key={e.name} className='p-2 ps-3 hover:bg-gray-300/40 cursor-pointer rounded-md transition'>
+                                <div className='flex gap-3 items-center flex-wrap'>
                                     {e.icon}
-                                    <span className='font-semibold text-lg text-slate-600'>{e.name}</span>
+                                    <span className='font-semibold text-lg text-neutral-800'>{e.name}</span>
                                 </div>
                             </li>
                         ))}
@@ -92,6 +100,9 @@ const Nav = () => {
                 </div>
             )
             )}
+            <div className='absolute bottom-0 left-0 p-3 w-full'>
+                <Account currentUser={user} />
+            </div>
         </nav>
     );
 }

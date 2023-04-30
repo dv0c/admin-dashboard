@@ -1,8 +1,12 @@
+
 import Nav from "./Nav";
 
 const Sidebar = () => {
     return (
-        <Nav />
+        <div>
+            {/* @ts-expect-error Server Component */}
+            <Nav />
+        </div>
     );
 }
 
