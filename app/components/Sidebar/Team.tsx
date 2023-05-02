@@ -1,26 +1,30 @@
-import React from 'react'
+'use client'
+import React, { useState } from 'react'
+import { Check, ChevronsUpDown } from "lucide-react"
+import { Button } from "../ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
-import { ChevronsUpDown as DownUp } from 'lucide-react'
+
+
 type Props = {
 
 }
 
-
-
 export const Team = (props: Props) => {
+
+    const [open, setOpen] = useState(false)
+    const [value, setValue] = useState("")
+
+
     return (
-        <div className='ms-3 flex items-center gap-3 py-3 cursor-pointer hover:underline
-        '>
-            <Avatar>
-                <AvatarImage src="https://t3.ftcdn.net/jpg/04/00/47/88/360_F_400478854_eAL87XQTJyakxh1XSadIxSojtBjm7z8b.jpg" />
-                <AvatarFallback className='uppercase'>TM</AvatarFallback>
-            </Avatar>
-            <div className='font-semibold '>
-                Team Internal Inc
+        <div className='py-3 pb-5 flex justify-between items-center cursor-not-allowed select-none'>
+            <div className='flex gap-3 items-center'>
+                <Avatar>
+                    <AvatarImage src=''></AvatarImage>
+                    <AvatarFallback>PT</AvatarFallback>
+                </Avatar>
+                Public Team
             </div>
-            <div>
-                <DownUp />
-            </div>
+            <ChevronsUpDown size={20} className='text-gray-500' />
         </div>
     )
 }

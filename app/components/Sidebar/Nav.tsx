@@ -1,3 +1,4 @@
+'use client'
 import { LayoutDashboardIcon as DbIcon } from 'lucide-react';
 import { Mail as MailIcon } from 'lucide-react';
 import { CalendarDays as CalendarIcon } from 'lucide-react';
@@ -10,10 +11,26 @@ import { Settings2 } from 'lucide-react';
 import { getCurrentUser } from '@/app/actions/getCurrentUser';
 import { Account } from './Account';
 import { Team } from './Team';
+import Search from './Search';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react'
 
-const Nav = async () => {
+type props = {
+    currentUser: any,
+    child: any;
+}
 
-    const user = await getCurrentUser()
+const Nav = (props: props) => {
+
+    const selectedRoute = props.child?.props?.childProp?.segment
+
+    const router = useRouter()
+
+    const navigate = (route: string) => {
+        router.push(route)
+        router.refresh()
+    }
 
     const data = [
         {
@@ -22,7 +39,8 @@ const Nav = async () => {
             list: [{
                 name: 'Dashboard',
                 icon: <DbIcon size={24} className='text-gray-700' />,
-                redirect: '/'
+                redirect: '/dashboard',
+                selected: selectedRoute === 'dashboard' ? true : false
             }]
         },
         {
@@ -32,22 +50,26 @@ const Nav = async () => {
                 {
                     name: 'Mail',
                     icon: <MailIcon size={24} className='text-gray-700' />,
-                    redirect: '/mail'
+                    redirect: '/mail',
+                    selected: selectedRoute === 'mail' ? true : false
                 },
                 {
                     name: 'Calendar',
                     icon: <CalendarIcon size={22} className='text-gray-700' />,
-                    redirect: '/calendar'
+                    redirect: '/calendar',
+                    selected: selectedRoute === 'calendar' ? true : false
                 },
                 {
                     name: 'Notification',
                     icon: <Bell size={24} className='text-gray-700' />,
-                    redirect: '/notifications'
+                    redirect: '/notifications',
+                    selected: selectedRoute === 'notifications' ? true : false
                 },
                 {
                     name: 'Messages',
                     icon: <MessageIcon size={24} className='text-gray-700' />,
-                    redirect: '/messages'
+                    redirect: '/messages',
+                    selected: selectedRoute === 'messages' ? true : false
                 },
             ],
         },
@@ -58,22 +80,26 @@ const Nav = async () => {
                 {
                     name: 'Todo Board',
                     icon: <CalendarCheck size={24} className='text-gray-700' />,
-                    redirect: '/mail'
+                    redirect: '/todo',
+                    selected: selectedRoute === 'todo' ? true : false
                 },
                 {
                     name: 'Documenation',
                     icon: <FileText size={22} className='text-gray-700' />,
-                    redirect: '/docs'
+                    redirect: '/docs',
+                    selected: selectedRoute === 'docs' ? true : false
                 },
                 {
                     name: 'Forum',
                     icon: <MessageSquare size={24} className='text-gray-700' />,
-                    redirect: '/forum'
+                    redirect: '/forum',
+                    selected: selectedRoute === 'forum' ? true : false
                 },
                 {
                     name: 'Settings',
                     icon: <Settings2 size={24} className='text-gray-700' />,
-                    redirect: '/settings'
+                    redirect: '/settings',
+                    selected: selectedRoute === 'settings' ? true : false
                 },
             ],
         }
@@ -81,19 +107,24 @@ const Nav = async () => {
 
 
     return (
-        <nav className='p-3 max-w-sm border h-screen relative'>
+        <nav className='p-3 px-5 max-w-sm border h-screen relative min-w-[280px]'>
             <Team />
+            <Search />
             {data.map((i) =>
             (
                 <div key={i.id} className="sidebar mt-3">
-                    <h1 className="heading ps-3">{i.name}</h1>
+                    <h1 className="heading select-none">{i.name}</h1>
                     <ul>
                         {i.list.map((e) => (
-                            <li key={e.name} className='p-2 ps-3 hover:bg-gray-300/40 cursor-pointer rounded-md transition'>
-                                <div className='flex gap-3 items-center flex-wrap'>
-                                    {e.icon}
-                                    <span className='font-semibold text-lg text-neutral-800'>{e.name}</span>
-                                </div>
+                            <li key={e.name} className={`
+                            ${e.selected ? 'bg-gray-300/40 ps-3' : ''}
+                            p-2 ps-0 hover:bg-gray-300/40 cursor-pointer hover:ps-3 rounded-md transition-all`}>
+                                <Link onClick={() => router.refresh()} href={e.redirect}>
+                                    <div className='flex gap-3 items-center flex-wrap'>
+                                        {e.icon}
+                                        <span className='font-semibold text-md text-neutral-800'>{e.name}</span>
+                                    </div>
+                                </Link>
                             </li>
                         ))}
                     </ul>
@@ -101,7 +132,7 @@ const Nav = async () => {
             )
             )}
             <div className='absolute bottom-0 left-0 p-3 w-full'>
-                <Account currentUser={user} />
+                <Account currentUser={props.currentUser} />
             </div>
         </nav>
     );

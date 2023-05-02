@@ -1,18 +1,25 @@
 import './globals.css'
+import { getCurrentUser } from "./actions/getCurrentUser";
+import Sidebar from "./components/Sidebar/Sidebar";
 
 export const metadata = {
   title: 'Admin - Dashboard',
   description: 'Admin dashboard - BLOG CMS',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const user = await getCurrentUser()
+
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+      <Sidebar currentUser={user} child={children} />
+        
+      </body>
     </html>
   )
 }

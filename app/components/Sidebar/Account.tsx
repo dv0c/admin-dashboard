@@ -8,7 +8,7 @@ type Props = {
     currentUser: any
 }
 
-
+import { signOut } from 'next-auth/react'
 
 export const Account = (props: Props) => {
 
@@ -17,11 +17,11 @@ export const Account = (props: Props) => {
 
 
     return (
-        <div>
+        <div className='select-none'>
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <div className='border rounded-lg px-3 py-2 hover:shadow transition cursor-pointer' ref={ref}>
-                        <div className='ms-3 flex justify-between flex-wrap items-center'>
+                        <div className='flex justify-between flex-wrap items-center'>
                             <div className='flex gap-3 items-center'>
                                 <Avatar>
                                     <AvatarImage src={props.currentUser.image} />
@@ -52,7 +52,7 @@ export const Account = (props: Props) => {
                     <DropdownMenuItem>Billing</DropdownMenuItem>
                     <DropdownMenuItem>Team</DropdownMenuItem>
                     <DropdownMenuItem>Subscription</DropdownMenuItem>
-                    <DropdownMenuItem>Log out</DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => signOut()}>Log out</DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
             <style global jsx>

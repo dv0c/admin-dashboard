@@ -1,11 +1,17 @@
 
+import Header from "./Header";
 import Nav from "./Nav";
 
-const Sidebar = () => {
+type props = {
+    currentUser: any,
+    child: any
+}
+
+const Sidebar = (props: props) => {    
     return (
-        <div>
-            {/* @ts-expect-error Server Component */}
-            <Nav />
+        <div className="flex">
+            <Nav currentUser={props.currentUser} child={props.child} />
+            <Header child={props.child} currentUser={props.currentUser} />
         </div>
     );
 }

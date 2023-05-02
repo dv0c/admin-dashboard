@@ -1,12 +1,11 @@
 'use client'
 
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { Input } from "../ui/input"
 import { Button } from '../ui/button'
 import { FcGoogle as Google } from 'react-icons/fc'
 import { AiOutlineGithub as Github } from 'react-icons/ai'
 import { signIn } from 'next-auth/react'
-import { getCurrentUser } from '@/app/actions/getCurrentUser'
 
 type Props = {}
 
@@ -38,7 +37,7 @@ export const Form = (props: Props) => {
             <Google className='mr-auto flex' />
             <span className='flex-1'>Continiue with Google</span>
           </Button>
-          <Button variant={'outline'} className='text-white border-gray-500 flex w-full' onClick={() => signIn('github')}>
+          <Button variant={'outline'} className='text-white border-gray-500 flex w-full' onClick={() => signIn('github', { callbackUrl: '/' })}>
             <Github className='mr-auto flex' />
             <span className='flex-1'>Continiue with Github</span>
           </Button>
