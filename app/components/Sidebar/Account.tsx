@@ -24,15 +24,15 @@ export const Account = (props: Props) => {
                         <div className='flex justify-between flex-wrap items-center'>
                             <div className='flex gap-3 items-center'>
                                 <Avatar>
-                                    <AvatarImage src={props.currentUser.image} />
-                                    <AvatarFallback className='uppercase'>{props.currentUser.name}</AvatarFallback>
+                                    <AvatarImage src={props?.currentUser?.image} />
+                                    <AvatarFallback className='uppercase'>{props?.currentUser?.name}</AvatarFallback>
                                 </Avatar>
                                 <div className='font-semibold line-clamp-1'>
-                                    {props.currentUser.name}
-                                    {props.currentUser.role && (
+                                    {props?.currentUser?.name}
+                                    {props?.currentUser?.role && (
                                         <div>
                                             •
-                                            {props.currentUser.role}
+                                            {props?.currentUser?.role}
                                         </div>
 
                                     )}
