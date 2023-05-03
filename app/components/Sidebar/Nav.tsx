@@ -1,4 +1,5 @@
 'use client'
+
 import { LayoutDashboardIcon as DbIcon } from 'lucide-react';
 import { Mail as MailIcon } from 'lucide-react';
 import { CalendarDays as CalendarIcon } from 'lucide-react';
@@ -8,13 +9,11 @@ import { CalendarCheck } from 'lucide-react';
 import { FileText } from 'lucide-react';
 import { MessageSquare } from 'lucide-react';
 import { Settings2 } from 'lucide-react';
-import { getCurrentUser } from '@/app/actions/getCurrentUser';
 import { Account } from './Account';
 import { Team } from './Team';
 import Search from './Search';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react'
+import { usePathname } from 'next/navigation';
 
 type props = {
     currentUser: any,
@@ -23,14 +22,11 @@ type props = {
 
 const Nav = (props: props) => {
 
-    const selectedRoute = props.child?.props?.childProp?.segment
+    const path = usePathname() || '';
+    
 
-    const router = useRouter()
+    const selectedRoute = path.split('/')[2] || 'dashboard' 
 
-    const navigate = (route: string) => {
-        router.push(route)
-        router.refresh()
-    }
 
     const data = [
         {
@@ -50,25 +46,25 @@ const Nav = (props: props) => {
                 {
                     name: 'Mail',
                     icon: <MailIcon size={24} className='text-gray-700' />,
-                    redirect: '/mail',
+                    redirect: '/dashboard/mail',
                     selected: selectedRoute === 'mail' ? true : false
                 },
                 {
                     name: 'Calendar',
                     icon: <CalendarIcon size={22} className='text-gray-700' />,
-                    redirect: '/calendar',
+                    redirect: '/dashboard/calendar',
                     selected: selectedRoute === 'calendar' ? true : false
                 },
                 {
                     name: 'Notification',
                     icon: <Bell size={24} className='text-gray-700' />,
-                    redirect: '/notifications',
+                    redirect: '/dashboard/notifications',
                     selected: selectedRoute === 'notifications' ? true : false
                 },
                 {
                     name: 'Messages',
                     icon: <MessageIcon size={24} className='text-gray-700' />,
-                    redirect: '/messages',
+                    redirect: '/dashboard/messages',
                     selected: selectedRoute === 'messages' ? true : false
                 },
             ],
@@ -80,25 +76,32 @@ const Nav = (props: props) => {
                 {
                     name: 'Todo Board',
                     icon: <CalendarCheck size={24} className='text-gray-700' />,
-                    redirect: '/todo',
+                    redirect: '/dashboard/todo',
                     selected: selectedRoute === 'todo' ? true : false
                 },
                 {
-                    name: 'Documenation',
+                    name: 'Blog',
                     icon: <FileText size={22} className='text-gray-700' />,
-                    redirect: '/docs',
-                    selected: selectedRoute === 'docs' ? true : false
+                    redirect: '/dashboard/blog',
+                    categories: [
+                        {
+                            name: 'Categories',
+                            redirect: '/dashboard/blog/categories',
+                            icon: <FileText size={22} className='text-gray-700' />,
+                        }
+                    ],
+                    selected: selectedRoute === 'blog' ? true : false
                 },
                 {
                     name: 'Forum',
                     icon: <MessageSquare size={24} className='text-gray-700' />,
-                    redirect: '/forum',
+                    redirect: '/dashboard/forum',
                     selected: selectedRoute === 'forum' ? true : false
                 },
                 {
                     name: 'Settings',
                     icon: <Settings2 size={24} className='text-gray-700' />,
-                    redirect: '/settings',
+                    redirect: '/dashboard/settings',
                     selected: selectedRoute === 'settings' ? true : false
                 },
             ],
@@ -114,15 +117,17 @@ const Nav = (props: props) => {
             (
                 <div key={i.id} className="sidebar mt-3">
                     <h1 className="heading select-none">{i.name}</h1>
-                    <ul>
+                    <ul className='gap-1 grid'>
                         {i.list.map((e) => (
-                            <li key={e.name} className={`
+                            <li key={e.name}>
+                                <Link href={e.redirect}>
+                                    <div className={`
                             ${e.selected ? 'bg-gray-300/40 ps-3' : ''}
                             p-2 ps-0 hover:bg-gray-300/40 cursor-pointer hover:ps-3 rounded-md transition-all`}>
-                                <Link onClick={() => router.refresh()} href={e.redirect}>
-                                    <div className='flex gap-3 items-center flex-wrap'>
-                                        {e.icon}
-                                        <span className='font-semibold text-md text-neutral-800'>{e.name}</span>
+                                        <div className='flex gap-3 items-center flex-wrap'>
+                                            {e.icon}
+                                            <span className='font-semibold text-md text-neutral-800'>{e.name}</span>
+                                        </div>
                                     </div>
                                 </Link>
                             </li>

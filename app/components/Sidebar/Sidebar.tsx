@@ -1,5 +1,5 @@
 
-import Header from "./Header";
+import Main from "./Main";
 import Nav from "./Nav";
 
 type props = {
@@ -11,7 +11,7 @@ const Sidebar = (props: props) => {
     return (
         <div className="flex">
             <Nav currentUser={props.currentUser} child={props.child} />
-            <Header child={props.child} currentUser={props.currentUser} />
+            <Main child={props.child} currentUser={props.currentUser} />
         </div>
     );
 }

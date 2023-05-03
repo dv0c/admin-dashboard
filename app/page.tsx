@@ -1,7 +1,16 @@
-export default function Home() {
-  return (
-    <div>
+'use client'
+import { useRouter } from "next/navigation"
+import { useEffect } from "react"
 
-    </div>
+export default function Home() {
+  
+  const router = useRouter()
+
+  useEffect(() => {
+    router.push('/dashboard')
+  })
+
+  return (
+    <h1>Page not found redirecting to /dashboard</h1>
   )
 }
