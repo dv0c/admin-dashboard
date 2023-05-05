@@ -31,7 +31,7 @@ const Main = (props: props) => {
                     </div>
                 </div>
             </header>
-            <main>
+            <main className="bg-gray-100/40 h-full">
                 {props.child}
             </main>
         </div>

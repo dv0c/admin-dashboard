@@ -1,4 +1,5 @@
 'use client'
+import { BlogCard } from "@/app/components/Blog/Blog";
 import { Header } from "@/app/components/Header";
 import { Button } from "@/app/components/ui/button";
 import { PlusIcon } from "lucide-react";
@@ -50,10 +51,28 @@ export default function Blog() {
         </div>
     )
 
+    const data = {
+        title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+        description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facilis cumque consectetur fugit quo ipsum soluta, voluptatum maxime! Qui, quae est?",
+        views: "2.3k",
+        comments: "1.2k",
+        likes: "1.2k",
+        createdAt: "12/12/2021",
+        reports: "132",
+    }
+
 
     return (
         <div>
             <Header body={HeaderBody} />
+            <section className="px-10 mt-3 flex gap-3 flex-wrap py-5">
+                <BlogCard data={data} />
+                <BlogCard data={data}/>
+                <BlogCard data={data}/>
+                <BlogCard data={data}/>
+                <BlogCard data={data}/>
+                <BlogCard data={data}/>
+            </section>
         </div>
     )
 }

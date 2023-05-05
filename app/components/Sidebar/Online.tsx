@@ -33,7 +33,6 @@ const Online = (props: Props) => {
                     </AvatarFallback>
                 </Avatar>
                 <div className='h-10 w-10 flex items-center justify-center cursor-pointer'>
-
                     <DropdownMenu>
                         <DropdownMenuTrigger><MoreVertical /></DropdownMenuTrigger>
                         <DropdownMenuContent className='md:mr-10'>
